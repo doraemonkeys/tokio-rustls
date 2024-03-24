@@ -14,13 +14,16 @@ exclude = ["/.github", "/examples", "/scripts"]
 
 [dependencies]
 tokio = "1.0"
-rustls = { version = "0.23", default-features = false, features = ["std"] }
-pki-types = { package = "rustls-pki-types", version = "1" }
+# rustls = { version = "0.23", default-features = false, features = ["std"] }
+rustls = { git = "https://github.com/doraemonkeys/rustls", branch = "ignore_invalid_SNI_0.23.3", default-features = false, features = [
+    "std",
+] }
+pki-types = { package = "rustls-pki-types", version = "^1.2" }
 
 [features]
 default = ["logging", "tls12", "aws_lc_rs"]
 aws_lc_rs = ["rustls/aws_lc_rs"]
-aws-lc-rs = ["aws_lc_rs"] # Alias because Cargo features commonly use `-`
+aws-lc-rs = ["aws_lc_rs"]                   # Alias because Cargo features commonly use `-`
 early-data = []
 fips = ["rustls/fips"]
 logging = ["rustls/logging"]
